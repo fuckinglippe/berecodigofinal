@@ -26,9 +26,18 @@ void processarCompra(float preco, float *totalCategoria) {
     int quantidade;
     printf("Digite a quantidade: ");
     scanf("%d", &quantidade);
-    if (quantidade <= 0){
-        printf("opcao invalida\n");
-    }else{
+   
+if (quantidade <= 0){
+    printf("nenhuma quantidade debitada por favor pressione enter e escolha novamente:\n");
+    getchar();
+    getchar();       
+}
+if (quantidade >= 1001){
+    printf("quantidade insuficiente.Maximo 1000unidades por vez, pressione enter e escolha novamente:\n");
+    getchar();
+    getchar();
+}  else{
+        
  float subtotal = quantidade * preco;
     *totalCategoria += subtotal;
      viewMenu += subtotal;
@@ -58,7 +67,9 @@ switch (opcao) {
     case 13: processarCompra(1.50, &totalMaterialLimpeza); break;
     case 14: processarCompra(15.00, &totalMaterialLimpeza); break;
     case 15: break;
-    default: printf("Opcao invalida!\n");
+    default: printf("Opcao invalida: pressione enter\n");
+    getchar();
+    getchar();
     }
     } while (opcao != 15);
 }
@@ -85,7 +96,9 @@ switch (opcao) {
     case 24: processarCompra(8.00, &totalAlimentos); break;
     case 25: processarCompra(5.00, &totalAlimentos); break;
     case 26: break;
-    default: printf("Opcao invalida!\n");
+    default: printf("Opcao invalida: pressione enter\n");
+    getchar();
+    getchar();
     }
     } while (opcao != 26);
 }
@@ -110,7 +123,9 @@ switch (opcao) {
     case 33: processarCompra(1.90, &totalPadaria); break;
     case 34: processarCompra(8.50, &totalPadaria); break;
     case 35: break;
-    default: printf("Opcao invalida!\n");
+    default: printf("Opcao invalida! pressione enter:\n");
+    getchar();
+    getchar();
     }
     } while (opcao != 35);
 }
@@ -124,7 +139,9 @@ float totalgeral = totalMaterialLimpeza + totalAlimentos + totalPadaria;
     printf("\n==== Pagamento ====\n");
     printf("Total geral: R$%.2f\n", totalgeral);
 if (totalgeral == 0) {
-    printf("Nenhuma compra foi realizada!\n");
+    printf("Nenhuma compra foi realizada! pressione enter para voltar ao menu\n");
+    getchar();
+    getchar();
 return;
     }
     printf("\nEscolha a forma de pagamento:\n");
@@ -165,6 +182,7 @@ if(valorRecebido < totalComDesconto){
     printf("Pagamento na maquina realizado? (1 - Sim, 0 - Não): ");
     scanf("%d", &confirmacao);
     esperaopagamento();
+
 if (confirmacao != 1) {
     printf("Pagamento nao concluído. Escolha outra forma de pagamento.\n");
     pagamento();  // Chama a função novamente para tentar outro pagamento
@@ -209,7 +227,9 @@ switch (opcao) {
     printf("Lucro do dia: R$%.2f\n", totaldoDIA);
     printf("Total de clientes durante o dia:%d\n", numeroClientes);
     break;
-    default: printf("Opcao invalida! Tente novamente.\n");
+    default: printf("Opcao invalida! pressione enter e Tente novamente.\n");
+    getchar();
+    getchar();
 }
 }while(opcao != 5);
 return 0;
