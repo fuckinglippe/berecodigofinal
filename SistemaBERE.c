@@ -164,6 +164,7 @@ if(valorRecebido < totalComDesconto){
    int confirmacao;
     printf("Pagamento na maquina realizado? (1 - Sim, 0 - Não): ");
     scanf("%d", &confirmacao);
+    esperaopagamento();
 if (confirmacao != 1) {
     printf("Pagamento nao concluído. Escolha outra forma de pagamento.\n");
     pagamento();  // Chama a função novamente para tentar outro pagamento
