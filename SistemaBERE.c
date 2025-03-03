@@ -32,7 +32,7 @@ if (quantidade <= 0){
     getchar();
     getchar();       
 }
-if (quantidade >= 1001){
+else if(quantidade >= 1001){
     printf("quantidade insuficiente.Maximo 1000unidades por vez, pressione enter e escolha novamente:\n");
     getchar();
     getchar();
@@ -139,7 +139,7 @@ float totalgeral = totalMaterialLimpeza + totalAlimentos + totalPadaria;
     printf("\n==== Pagamento ====\n");
     printf("Total geral: R$%.2f\n", totalgeral);
 if (totalgeral == 0) {
-    printf("Nenhuma compra foi realizada! pressione enter para voltar ao menu\n");
+    printf("Nenhuma compra foi realizada! pressione enter para voltar ao menu:\n");
     getchar();
     getchar();
 return;
@@ -162,6 +162,7 @@ desconto = totalgeral * 0.18;
 
  float totalComDesconto = totalgeral - desconto;
  float valorRecebido, troco;
+ 
 
    printf("Total a pagar com desconto: R$%.2f\n", totalComDesconto);
 
@@ -171,6 +172,7 @@ do {
 
 if(valorRecebido < totalComDesconto){
    printf("Valor insuficiente! Digite novamente.\n");
+
 }
 }while (valorRecebido < totalComDesconto);
   troco = valorRecebido - totalComDesconto;
@@ -181,18 +183,25 @@ if(valorRecebido < totalComDesconto){
    int confirmacao;
     printf("Pagamento na maquina realizado? (1 - Sim, 0 - Não): ");
     scanf("%d", &confirmacao);
-    esperaopagamento();
 
 if (confirmacao != 1) {
     printf("Pagamento nao concluído. Escolha outra forma de pagamento.\n");
+    getchar();
+    getchar();
     pagamento();  // Chama a função novamente para tentar outro pagamento
 return;
+
 }
 }else {
+   
     printf("Opcao invalida! Escolha novamente.\n");
+    getchar();
+    getchar();
+  
     pagamento();
 return;
-}
+} 
+esperaopagamento();
     totaldoDIA += totalgeral;
     numeroClientes++;
 // Zera as variaveis  totais após o pagamento ser concluído
@@ -204,6 +213,7 @@ return;
 
 //função para passar para o proximo cliente 
 void esperaopagamento(){
+     
     printf("Pagamento concluido! aperte enter para finalizar seu atendimento.\n");
     getchar();
     getchar();
