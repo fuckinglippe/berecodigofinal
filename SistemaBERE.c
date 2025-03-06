@@ -12,16 +12,31 @@ int numeroClientes = 0;
 // Função para exibir o menu principal
 void exibirMenu() {
     system("cls"); 
-    printf("\n==== Menu Principal ====\n");
-    printf("1. Material de Limpeza\n");
-    printf("2. Venda de Alimentos\n");
-    printf("3. Padaria\n");
-    printf("4. Pagamento\n");
-    printf("5. Sair\n");
-    printf("Escolha uma opcao: ");
+    printf(" ___________________________________ \n");
+    printf("|   BEM VINDO AO MERCADO DA BERE    |\n");
+    printf("|         MENU PRINCIPAL            |\n");
+    printf("|___________________________________|\n");
+    printf("|      1- Material de Limpeza       |\n");
+    printf("|      2- Venda de Alimentos        |\n");
+    printf("|      3- Padaria                   |\n");
+    printf("|      4- Pagamento                 |\n");
+    printf("|      5- Sair/Exit                 |\n");
+    printf("|-----------------------------------|\n");
+    printf("|Escolha uma opcao:");
 }
 
-// Função para processar a compra de um item
+// Função ao prescionar a tecla 5 e finalizar o sistema
+void encerrarSistema(){
+    system("cls");
+    printf(" _____________________________________ \n");
+    printf("| ENCERRANDO O SISTEMA.......         |\n");
+    printf("| POR FAVOR NAO DESLIGUE O COMPUTADOR.|\n");
+    printf("|_____________________________________|\n");
+    printf("| Faturamento do dia: R$%.2f\n", totaldoDIA);
+    printf("| Total de vendar do dia:%d\n", numeroClientes);
+}
+
+// Função para processar a compra de um item e armazenar na vairavel global
 void processarCompra(float preco, float *totalCategoria) {
     int quantidade;
     printf("Digite a quantidade: ");
@@ -33,7 +48,7 @@ if (quantidade <= 0){
     getchar();       
 }
 else if(quantidade >= 1001){
-    printf("quantidade insuficiente.Maximo 1000unidades por vez, pressione enter e escolha novamente:\n");
+    printf("quantidade insuficiente.Maximo 1000 unidades por vez, pressione enter e escolha novamente:\n");
     getchar();
     getchar();
 }  else{
@@ -44,20 +59,26 @@ else if(quantidade >= 1001){
 }
 }
 
-// Função para o menu de Material de Limpeza
+// Função para o menu de Material de Limpeza junto com processar compras....
 void menuMaterialLimpeza() {
+
     int opcao;
     viewMenu += totalMaterialLimpeza;
 do{
-    system("cls");
-    printf("Total: %.2f", viewMenu);
-    printf("\n==== Material de Limpeza ====\n");
-    printf("11. Detergente - R$1.99\n");
-    printf("12. Sabao em Po (1kg) - R$8.99\n");
-    printf("13. Esponja - R$1.50\n");
-    printf("14. Amaciante (1Lt) - R$15.00\n");
-    printf("15. Voltar ao Menu Principal\n");
-    printf("Escolha um item: ");
+   
+    system("cls"); 
+    printf(" ___________________________________ \n");
+    printf("|      MENU MATERIAL DE LIMPEZA     |\n");
+    printf("|___________________________________|\n");
+    printf(" TOTAL DO CARRINHO: R$%.2f\n", viewMenu);
+    printf(" ___________________________________ \n");
+    printf("| [11]      Detergente      R$1.99  |\n");
+    printf("| [12]      Sabao em Po     R$8.99  |\n");
+    printf("| [13]      Esponja         R$1.50  |\n");
+    printf("| [14]      Amaciante       R$15.00 |\n");
+    printf("| [15]      Exit/Sair               |\n");
+    printf("|___________________________________|\n");
+    printf(" Escolha um item:");
     scanf("%d", &opcao);
         
 
@@ -74,7 +95,7 @@ switch (opcao) {
     } while (opcao != 15);
 }
 
-// Função para o menu de Alimentos
+// Função para o menu de Alimentos..
 void menuAlimentos() {
     int opcao;
 do {
@@ -103,7 +124,7 @@ switch (opcao) {
     } while (opcao != 26);
 }
 
-// Função para o menu da Padaria
+// Função para o menu da Padaria..
 void menuPadaria() {
     int opcao;
 do {
@@ -130,7 +151,7 @@ switch (opcao) {
     } while (opcao != 35);
 }
 
-// Função para processar o pagamento
+// Função para processar o pagamento e calcular o total geral..
 void pagamento() {
     system("cls");
 float totalgeral = totalMaterialLimpeza + totalAlimentos + totalPadaria;
@@ -169,9 +190,12 @@ desconto = totalgeral * 0.18;
 do {
    printf("Digite o valor recebido: ");
    scanf("%f", &valorRecebido);
+   limpabuffer();
+
 
 if(valorRecebido < totalComDesconto){
    printf("Valor insuficiente! Digite novamente.\n");
+
 
 }
 }while (valorRecebido < totalComDesconto);
@@ -192,16 +216,14 @@ if (confirmacao != 1) {
 return;
 
 }
+
 }else {
    
     printf("Opcao invalida! Escolha novamente.\n");
     getchar();
     getchar();
-  
-    pagamento();
-return;
+   pagamento();
 } 
-esperaopagamento();
     totaldoDIA += totalgeral;
     numeroClientes++;
 // Zera as variaveis  totais após o pagamento ser concluído
@@ -211,34 +233,38 @@ esperaopagamento();
     viewMenu = 0.0;   
 }
 
-//função para passar para o proximo cliente 
+// Função para passar para o proximo cliente.. 
 void esperaopagamento(){
-     
     printf("Pagamento concluido! aperte enter para finalizar seu atendimento.\n");
     getchar();
     getchar();
 }
 
-//função para iniciar o menu principal 
+// Função para limpar o buffer do teclado.
+void limpabuffer(){
+    int letra;
+    while((letra = getchar()) != '\n' && letra != EOF );
+}
+
+//Ponto inicial do codigo.. 
 int main() {
+
 int opcao;
-    viewMenu = 0.0;
+    viewMenu = 0.0;//zerando o view menu cada vez que inica o codigo novamente.
 do {
-        
     exibirMenu();
     scanf("%d", &opcao);
+
 switch (opcao) {
     case 1: menuMaterialLimpeza(); break;
     case 2: menuAlimentos(); break;
     case 3: menuPadaria(); break;
     case 4: pagamento(); break;
-    case 5:
-    printf("\nEncerrando o sistema...\n");
-    printf("Lucro do dia: R$%.2f\n", totaldoDIA);
-    printf("Total de clientes durante o dia:%d\n", numeroClientes);
-    break;
-    default: printf("Opcao invalida! pressione enter e Tente novamente.\n");
-    getchar();
+    case 5: encerrarSistema();break;
+    default://caso nao for nenhuma delas.....
+
+    printf("Opcao invalida! pressione enter e Tente novamente.\n");
+    limpabuffer();
     getchar();
 }
 }while(opcao != 5);
